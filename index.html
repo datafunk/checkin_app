@@ -10,11 +10,18 @@
 
         <h1>Check in</h1>
 
-        <select>
+        <select id="teams">
             <option value="t_1">team 1</option>
             <option value="t_2">team 2</option>
         </select>
-        <label for="date">date:</label>
+
+        <select id="users">
+            <option value="u_1">user 1</option>
+            <option value="u_2">user 2</option>
+            <option value="u_3">user 3</option>
+            <option value="u_4">user 4</option>
+        </select>
+        <!-- <label for="date">date:</label> -->
         <input type="date" id="date">
         <label for="yesterday">Yesterday / Recent work</label>
         <textarea id="yesterday" resizable="false" readonly="readonly"></textarea>
@@ -26,7 +33,8 @@
     </div>
 
 
-<script type="text/javascript"></script>
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./bower_components/underscore/underscore-min.js"></script>
 
 </body>
 </html>
