@@ -1,4 +1,5 @@
 var max_date = new Date();
+var userInputs = {};
 
 function setMaxDate() {
     var yyyy = max_date.getFullYear().toString();
@@ -10,15 +11,31 @@ function setMaxDate() {
 }
 
 function getUsrDate(){
-    var selectedDate = $('#date').val();
-    console.log(selectedDate);
+    userInputs.selectedDate = new Date( $('#date').val() );
 }
 
 $(document).ready(function() {
 
     setMaxDate();
+
+
+    /* listeners*/
+
     $('#date').on('change', function(e){
         getUsrDate();
+    });
+
+    $('#teams').on('change', function(e){
+        userInputs.selectedTeam = $('#teams').val();
+    });
+
+
+    $('#users').on('change', function(e){
+        userInputs.selectedUser = $('#users').val();
+    });
+
+    $('#checkin').on('click', function(e){
+
     });
 
 });
