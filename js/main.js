@@ -40,6 +40,12 @@
 		});
 	}
 
+	function clearFields () {
+		$("#yesterday").val("");
+		$("#today").val("");
+		$("#blockers").val("");
+	}
+
 	function populateTeams () {
 		let html = "";
 
@@ -54,7 +60,6 @@
 		var html = "",
 			usersArray = _.where(users, {teamName: teamName});
 
-console.log(teamName, usersArray);
 		_.each(usersArray, function (user) {
 			html += "<option value=\"" + user.userId + "\">" + user.userName + "</option>";
 		});
@@ -71,11 +76,16 @@ console.log(teamName, usersArray);
 
 		var found = _.where(checkins, {userId: userInputs.selectedUser, date: userInputs.selectedDate});
 
-		console.log(found);
+		if (found.length) {
+			$("#yesterday").val(found[0].yesterday);
+			$("#today").val(found[0].today);
+			$("#blockers").val(found[0].blockers);
+		}
 	}
 
 	function saveCheckin () {
-		var userId,
+		var teamName,
+			userId,
 			date,
 			yesterday,
 			today,
@@ -96,22 +106,24 @@ console.log(teamName, usersArray);
 	$("#teams").append(populateTeams());
 
 	$('#teams').on('change', function(e){
-        userInputs.selectedTeam = $('#teams').val();
-        $("#users").html(populateUsers(userInputs.selectedTeam));
-        populateList();
-    });
+        $("#users").html(populateUsers($('#teams').val()));
 
-	$('#date').on('change', function(e){
-        
+        clearFields();
         populateList();
     });
 
     $('#users').on('change', function(e){
+    	clearFields();
+        populateList();
+    });
+
+	$('#date').on('change', function(e){
+        clearFields();
         populateList();
     });
 
     $('#checkin').on('click', function(e){
-
+    	saveCheckin();
     });
 
 })();
