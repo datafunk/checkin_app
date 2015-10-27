@@ -3,7 +3,8 @@
 
 	var teams = [
 			{"teamName": "Team1"},
-			{"teamName": "Team2"}
+			{"teamName": "Team2"},
+			{"teamName": "Team3"}
 		],
 		users = [
 			{"userId": "987", "userName": "Imad", "teamName": "Team1"},
@@ -95,19 +96,13 @@
 	}
 
 	function saveCheckin () {
-		var teamName,
-			userId,
-			date,
-			yesterday,
-			today,
-			blockers;
-
 		checkins.push({
-			userId,
-			date,
-			yesterday,
-			today,
-			blockers
+			teams: $("teams").val(),
+			userId: $("users").val(),
+			date: $("date").val(),
+			yesterday: $("yesterday").val(),
+			today: $("today").val(),
+			blockers: $("blockers").val(),
 		});
 	}
 
