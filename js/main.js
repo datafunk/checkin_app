@@ -11,11 +11,22 @@
 			{"userId": "985", "userName": "Imad", "teamName": "Team2"}
 		],
 		checkins = [
-			{"userId": "987", "date": "26/10/2015", "yesterday": "", "today": "", "blockers": ""},
-			{"userId": "986", "date": "26/10/2015", "yesterday": "", "today": "", "blockers": ""},
-			{"userId": "985", "date": "26/10/2015", "yesterday": "", "today": "", "blockers": ""},
-			{"userId": "986", "date": "27/10/2015", "yesterday": "", "today": "", "blockers": ""}
-		];
+			{"userId": "987", "date": "2015-10-26", "yesterday": "", "today": "", "blockers": ""},
+			{"userId": "986", "date": "2015-10-26", "yesterday": "", "today": "", "blockers": ""},
+			{"userId": "985", "date": "2015-10-26", "yesterday": "", "today": "", "blockers": ""},
+			{"userId": "986", "date": "2015-10-27", "yesterday": "", "today": "", "blockers": ""}
+		],
+		userInputs = {};
+
+	function setMaxDate() {
+		var max_date = new Date();
+    	var yyyy = max_date.getFullYear().toString();
+	    var mm = (max_date.getMonth() + 1).toString(); // getMonth() is zero-based
+	    var dd = max_date.getDate().toString();
+	    var date_str = yyyy + '-' + mm + '-' + dd;
+	    $('#date').attr('max', date_str);
+	    $('#date').attr('value', date_str);
+	}
 
 	function readData () {
 
@@ -33,23 +44,32 @@
 		let html = "";
 
 		_.each(teams, function(team) {
-			html += `<option value="team.teamName">team.teamName</option>`;
-		});
-	}
-
-	function populateUsers (teamName) {
-		var html = "",
-			users = _.where(users, {teamName: teamName});
-
-		_.each(users, function (user) {
-			html += `<option value="user.userId">user.userName</option>`;
+			html += "<option value=\"" + team.teamName + "\">" + team.teamName + "</option>";
 		});
 
 		return html;
 	}
 
-	function populateList (user, date) {
-		var found = _.where(checkins, {userId: user, date: date});
+	function populateUsers (teamName) {
+		var html = "",
+			usersArray = _.where(users, {teamName: teamName});
+
+console.log(teamName, usersArray);
+		_.each(usersArray, function (user) {
+			html += "<option value=\"" + user.userId + "\">" + user.userName + "</option>";
+		});
+
+		return html;
+	}
+
+	function populateList () {
+		userInputs = {
+        	selectedDate: $('#date').val(),
+        	selectedUser: $('#users').val(),
+        	selectedTeam: $('#teams').val()
+        }
+
+		var found = _.where(checkins, {userId: userInputs.selectedUser, date: userInputs.selectedDate});
 
 		console.log(found);
 	}
@@ -71,10 +91,27 @@
 	}
 
 
+	setMaxDate();
+	
+	$("#teams").append(populateTeams());
 
-	populateTeams();
-	populateUsers();
+	$('#teams').on('change', function(e){
+        userInputs.selectedTeam = $('#teams').val();
+        $("#users").html(populateUsers(userInputs.selectedTeam));
+        populateList();
+    });
 
-	populateList("987", "26/10/2015");
+	$('#date').on('change', function(e){
+        
+        populateList();
+    });
+
+    $('#users').on('change', function(e){
+        populateList();
+    });
+
+    $('#checkin').on('click', function(e){
+
+    });
 
 })();

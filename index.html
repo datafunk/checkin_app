@@ -9,33 +9,24 @@
     <div id="wrap">
 
         <h1>Check in</h1>
-
         <select id="teams">
-            <option value="t_1">team 1</option>
-            <option value="t_2">team 2</option>
+            <option value="" disabled>Select team</option>
         </select>
+        <select id="users"></select>
 
-        <select id="users">
-            <option value="u_1">user 1</option>
-            <option value="u_2">user 2</option>
-            <option value="u_3">user 3</option>
-            <option value="u_4">user 4</option>
-        </select>
         <!-- <label for="date">date:</label> -->
         <input type="date" id="date" max="" required/>
         <label for="yesterday">Yesterday / Recent work</label>
-        <textarea id="yesterday" resizable="false" readonly="readonly"></textarea>
+        <textarea id="yesterday" resizable="false"></textarea>
         <label for="today">Today</label>
-        <textarea id="today" resizable="false" readonly="readonly"></textarea>
+        <textarea id="today" resizable="false"></textarea>
         <label for="blockers">Questions / Blockers</label>
-        <textarea id="blockers" resizable="false" readonly="readonly"></textarea>
+        <textarea id="blockers" resizable="false"></textarea>
         <button id="checkin">check in</button>
     </div>
 
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/underscore/underscore-min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/utils.js"></script>
-
 </body>
 </html>
